@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://nrtd43n5y34u"]
+
+[ext_resource type="Script" uid="uid://bxcfhcglmxqls" path="res://Gun/Modules/Scripts/clip_module.gd" id="1_27ime"]
+[ext_resource type="PackedScene" uid="uid://duahwarwx72sd" path="res://Bullets/test_bullet.tscn" id="2_ejdjv"]
+[ext_resource type="PackedScene" uid="uid://d3kj4g086a4k8" path="res://Gun/Modules/module_connector.tscn" id="3_0l2rq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bnl5j"]
+size = Vector3(0.115, 0.435, 0.115)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gakbu"]
+albedo_color = Color(0.27349478, 0.40809953, 0.5854947, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rp6oh"]
+size = Vector3(0.175, 0.2, 0.205)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0l2rq"]
+size = Vector3(0.25, 0.5, 0.25)
+
+[node name="BasicClipModule" type="Node3D" unique_id=650118633 node_paths=PackedStringArray("Connectors")]
+script = ExtResource("1_27ime")
+BulletScene = ExtResource("2_ejdjv")
+ModuleHeight = 2
+Connectors = [NodePath("ModuleConnector")]
+BulletSpeedMod = 100.0
+BulletDamageMod = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1831761755]
+transform = Transform3D(1, 0, 0, 0, 0.97283244, 0.23151018, 0, -0.23151019, 0.9728325, 0, -0.13513662, 0)
+mesh = SubResource("BoxMesh_bnl5j")
+surface_material_override/0 = SubResource("StandardMaterial3D_gakbu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=220510060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0.007700026, -0.022193918)
+mesh = SubResource("BoxMesh_rp6oh")
+surface_material_override/0 = SubResource("StandardMaterial3D_gakbu")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1796953690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1974895812]
+shape = SubResource("BoxShape3D_0l2rq")
+
+[node name="ModuleConnector" parent="." unique_id=1976510517 instance=ExtResource("3_0l2rq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)

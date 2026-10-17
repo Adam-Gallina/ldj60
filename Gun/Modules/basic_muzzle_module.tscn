@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://jvv7oenrpyej"]
+
+[ext_resource type="Script" uid="uid://cmpm2ms7nwn8o" path="res://Gun/Modules/Scripts/gun_module.gd" id="1_2ihu5"]
+[ext_resource type="PackedScene" uid="uid://d3kj4g086a4k8" path="res://Gun/Modules/module_connector.tscn" id="2_6bxri"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_y3phd"]
+size = Vector3(0.2, 0.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ihu5"]
+size = Vector3(0.25, 0.25, 0.5)
+
+[node name="BasicMuzzleModule" type="Node3D" unique_id=2056927245 node_paths=PackedStringArray("Connectors")]
+script = ExtResource("1_2ihu5")
+ModuleWidth = 2
+Connectors = [NodePath("ModuleConnector")]
+BulletSpeedMod = -40.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1446720911]
+transform = Transform3D(1, 0, 0, 0, -0.007714278, 0.9999704, 0, -0.9999704, -0.0077142753, 0, 0, -0.125)
+mesh = SubResource("BoxMesh_y3phd")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1389364511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.125)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=215607311]
+shape = SubResource("BoxShape3D_2ihu5")
+
+[node name="ModuleConnector" parent="." unique_id=1976510517 instance=ExtResource("2_6bxri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)

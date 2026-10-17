@@ -1,0 +1,2 @@
+extends GunModule
+class_name TriggerModule

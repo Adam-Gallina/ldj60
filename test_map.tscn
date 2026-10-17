@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://ddxvy721dm1cb"]
+
+[ext_resource type="PackedScene" uid="uid://fcfvs6lptyxx" path="res://Player/player.tscn" id="1_4qc02"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4wuf8"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s02eq"]
+albedo_color = Color(0.22378641, 0.15286066, 0.044193413, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_t8dge"]
+size = Vector3(1, 4, 1)
+
+[node name="TestMap" type="Node3D" unique_id=511994485]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=749601368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016796112, 0)
+mesh = SubResource("PlaneMesh_4wuf8")
+surface_material_override/0 = SubResource("StandardMaterial3D_s02eq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1260543163]
+transform = Transform3D(0.85360533, 0, 0.5209203, 0, 1, 0, -0.5209203, 0, 0.85360533, -2.3582225, 2, -3.7466345)
+mesh = SubResource("PrismMesh_t8dge")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2069843565]
+transform = Transform3D(0.9774307, 0, -0.21125653, 0, 1, 0, 0.21125653, 0, 0.9774307, 4.237597, 2, -4.3602347)
+mesh = SubResource("PrismMesh_t8dge")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=541610693]
+transform = Transform3D(0.9762885, 0, 0.21647371, 0, 1, 0, -0.21647371, 0, 0.9762885, -5.898709, 2, 2.8875003)
+mesh = SubResource("PrismMesh_t8dge")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1020534235]
+transform = Transform3D(0.9542821, 0, -0.29890755, 0, 1, 0, 0.29890755, 0, 0.9542821, -0.87208605, 2, 6.110551)
+mesh = SubResource("PrismMesh_t8dge")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=2104767911]
+transform = Transform3D(0.46550637, 0, 0.8850446, 0, 1, 0, -0.8850446, 0, 0.46550637, 6.474363, 2, 1.4435177)
+mesh = SubResource("PrismMesh_t8dge")
+
+[node name="Player" parent="." unique_id=923322504 instance=ExtResource("1_4qc02")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1809723913]
+transform = Transform3D(0.9030806, 0.11145214, 0.41475758, -0.4294711, 0.23435864, 0.87214136, 0, -0.9657404, 0.25951022, 0, 4.608975, 0)
+light_energy = 4.0
+shadow_enabled = true
