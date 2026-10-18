@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dt0s0efoef1kx"]
+
+[ext_resource type="Script" uid="uid://dla48svier8t1" path="res://Effects/effect_controller.gd" id="1_nighr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5mo7"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 0.9726976, 0.5723417, 1)
+emission_energy_multiplier = 2.0
+disable_receive_shadows = true
+billboard_keep_scale = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_nighr"]
+material = SubResource("StandardMaterial3D_y5mo7")
+
+[sub_resource type="Curve" id="Curve_dt0tv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.2443824, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_era01"]
+colors = PackedColorArray(1, 0.94255376, 0, 1, 1, 0.34791076, 0, 1)
+
+[node name="SparkEffect" type="CPUParticles3D" unique_id=361417140]
+cast_shadow = 0
+gi_mode = 2
+emitting = false
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.94
+lifetime_randomness = 0.48
+mesh = SubResource("SphereMesh_nighr")
+emission_shape = 1
+emission_sphere_radius = 0.1
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+scale_amount_min = 0.05
+scale_amount_max = 0.08
+scale_amount_curve = SubResource("Curve_dt0tv")
+color = Color(0.717025, 0.717025, 0.717025, 1)
+color_initial_ramp = SubResource("Gradient_era01")
+script = ExtResource("1_nighr")

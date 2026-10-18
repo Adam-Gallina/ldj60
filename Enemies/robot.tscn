@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://e53ds81kxlu0"]
+
+[ext_resource type="Script" uid="uid://0mpit4djdskd" path="res://Enemies/bot_controller.gd" id="1_7yxfw"]
+[ext_resource type="PackedScene" uid="uid://bcg0ahrlh776l" path="res://Enemies/robot_gun.tscn" id="3_gwm2j"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vteeh"]
+radius = 0.36376953
+
+[node name="Robot" type="CharacterBody3D" unique_id=55826926 node_paths=PackedStringArray("CurrGun") groups=["Actor"]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_7yxfw")
+MinAttackRange = 5
+MaxAttackRange = 8
+CurrGun = NodePath("OriginPivot/WaistPivot/LShoulderPivot/LElbowPivot/LWristPivot/RobotGun")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1759312995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_vteeh")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=182637542]
+path_height_offset = 0.5
+avoidance_enabled = true
+height = 2.0
+debug_enabled = true
+
+[node name="OriginPivot" type="Node3D" parent="." unique_id=240253780]
+
+[node name="WaistPivot" type="Node3D" parent="OriginPivot" unique_id=1260622316]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0745289, 0)
+
+[node name="NeckPivot" type="Node3D" parent="OriginPivot/WaistPivot" unique_id=168307458]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41870457, 0)
+
+[node name="LShoulderPivot" type="Node3D" parent="OriginPivot/WaistPivot" unique_id=205293156]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.926673, 0.3758685, 0, -0.3758685, 0.926673, 0.3590319, 0.29367822, 0)
+
+[node name="LElbowPivot" type="Node3D" parent="OriginPivot/WaistPivot/LShoulderPivot" unique_id=922251324]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.31163847, 0.95020074, 0, -0.95020074, 0.31163847, 0.23935536, -0.39866537, 0)
+
+[node name="LWristPivot" type="Node3D" parent="OriginPivot/WaistPivot/LShoulderPivot/LElbowPivot" unique_id=1445665048]
+unique_name_in_owner = true
+transform = Transform3D(0, 1, 4.371139e-08, 4.371139e-08, -4.3711385e-08, 1, 1, 0, -4.371139e-08, 0.0075936317, -0.5002508, 0)
+
+[node name="RobotGun" parent="OriginPivot/WaistPivot/LShoulderPivot/LElbowPivot/LWristPivot" unique_id=1774620038 node_paths=PackedStringArray("Parent") instance=ExtResource("3_gwm2j")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+Parent = NodePath("../../../../../..")
+
+[node name="RShoulderPivot" type="Node3D" parent="OriginPivot/WaistPivot" unique_id=1752634400]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35768986, 0.2845946, 0)
+
+[node name="RElbowPivot" type="Node3D" parent="OriginPivot/WaistPivot/RShoulderPivot" unique_id=1662469939]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.611527, 0.7912235, 0, -0.7912235, 0.611527, -0.23513043, -0.3900631, 0)
+
+[node name="RWristPivot" type="Node3D" parent="OriginPivot/WaistPivot/RShoulderPivot/RElbowPivot" unique_id=202818906]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0069770813, -0.48269698, 0)
+
+[node name="LHipPivot" type="Node3D" parent="OriginPivot/WaistPivot" unique_id=1342494999]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18942744, -0.067848325, 0)
+
+[node name="LKneePivot" type="Node3D" parent="OriginPivot/WaistPivot/LHipPivot" unique_id=734434176]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5220887, 0)
+
+[node name="LAnklePivot" type="Node3D" parent="OriginPivot/WaistPivot/LHipPivot/LKneePivot" unique_id=429819801]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0020633936, -0.4810736, 0)
+
+[node name="RHipPivot" type="Node3D" parent="OriginPivot/WaistPivot" unique_id=1277767240]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19979942, -0.06699616, 0)
+
+[node name="RKneePivot" type="Node3D" parent="OriginPivot/WaistPivot/RHipPivot" unique_id=1585293701]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0020633936, -0.5229943, 0)
+
+[node name="RAnklePivot" type="Node3D" parent="OriginPivot/WaistPivot/RHipPivot/RKneePivot" unique_id=1769271997]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0020633936, -0.4825776, 0)
+
+[node name="PlayerRayCast3D" type="RayCast3D" parent="." unique_id=328776829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_mask = 3
+hit_back_faces = false

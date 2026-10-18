@@ -1,31 +1,38 @@
 [gd_scene format=3 uid="uid://duahwarwx72sd"]
 
 [ext_resource type="Script" uid="uid://i4cpceeyssri" path="res://Bullets/bullet_base.gd" id="1_irlmi"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4q3ci"]
-radius = 0.059570313
-height = 0.20654297
+[ext_resource type="PackedScene" uid="uid://c8nreylx5ly20" path="res://Effects/line_mesh_3d.tscn" id="2_3crro"]
+[ext_resource type="PackedScene" uid="uid://dt0s0efoef1kx" path="res://Effects/spark_effect.tscn" id="2_c8exl"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_8iqr7"]
-top_radius = 0.05
-bottom_radius = 0.05
-height = 0.15
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.03
 
-[node name="TestBullet" type="RigidBody3D" unique_id=982011047]
-collision_layer = 32
-collision_mask = 64
-input_ray_pickable = false
-gravity_scale = 0.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8exl"]
+albedo_color = Color(0.66441286, 0.66441286, 0.66441286, 1)
+emission = Color(0.90588236, 0.5137255, 0.3882353, 1)
+emission_energy_multiplier = 0.3
+
+[node name="BasicBullet" type="Node3D" unique_id=321003225]
 script = ExtResource("1_irlmi")
-BaseSpeed = 0.0
-BaseDamage = 0.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1137367877]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_4q3ci")
+SparkEffect = ExtResource("2_c8exl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=794774368]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+visible = false
 mesh = SubResource("CylinderMesh_8iqr7")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="LineMesh3D" parent="." unique_id=308994247 instance=ExtResource("2_3crro")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_c8exl")
+MaxWidth = 0.01
+
+[node name="SparkEffect" parent="." unique_id=361417140 instance=ExtResource("2_c8exl")]
+
+[node name="HitscanRayCast" type="RayCast3D" parent="." unique_id=1626875174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6387247)
+target_position = Vector3(0, 0, -1)
+collision_mask = 65
+hit_from_inside = true
+collide_with_areas = true

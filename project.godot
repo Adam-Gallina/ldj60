@@ -15,6 +15,15 @@ run/main_scene="uid://ddxvy721dm1cb"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Constants="*uid://d05j44piir6qk"
+BotBuilder="*uid://dchb3ld841xgh"
+
+[global_group]
+
+Actor=""
+
 [input]
 
 Left={
@@ -58,10 +67,13 @@ Inventory={
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Enemy"
+3d_physics/layer_4="Rubble"
 3d_physics/layer_5="Interactive"
 3d_physics/layer_6="Bullet"
 3d_physics/layer_7="Damageable"
 3d_physics/layer_9="Inventory Barrier"
+3d_physics/layer_10="Module Connector"
+3d_physics/layer_11="Module"
 
 [physics]
 

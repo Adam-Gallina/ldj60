@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4eykrg73gb7r"]
+
+[ext_resource type="Texture2D" uid="uid://cjshnb1ocge35" path="res://Assets/Materials/Images/Microwave.png" id="1_85g7d"]
+
+[resource]
+albedo_texture = ExtResource("1_85g7d")

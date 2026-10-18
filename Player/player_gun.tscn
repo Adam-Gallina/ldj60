@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cu75xy6xrrfnj"]
 
-[ext_resource type="Script" uid="uid://dwtd7213sh7mv" path="res://Gun/gun_controller.gd" id="1_140x7"]
-[ext_resource type="PackedScene" uid="uid://nrtd43n5y34u" path="res://Gun/Modules/basic_clip_module.tscn" id="2_iwwba"]
-[ext_resource type="PackedScene" uid="uid://jvv7oenrpyej" path="res://Gun/Modules/basic_muzzle_module.tscn" id="3_jhnfd"]
+[ext_resource type="Script" uid="uid://bc5tvfh3od8su" path="res://Player/gun_inventory.gd" id="1_yhjgo"]
+[ext_resource type="AudioStream" uid="uid://dbgf40e58wnn0" path="res://Audio/gun-gunshot-02.wav" id="3_akoo3"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_iwwba"]
 plane = Plane(-1, 0, 0, 0)
@@ -19,7 +18,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.84204024, -0.7493494, -0.82598186)]
+"values": [Vector3(0.084, -0.075, -0.083)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -59,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.84204024, -0.7493494, -0.82598186), Vector3(0, 0, -1.676)]
+"values": [Vector3(0.084, -0.075, -0.083), Vector3(0, 0, -0.168)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -92,25 +91,18 @@ _data = {
 &"swap_inventory": SubResource("Animation_jhnfd")
 }
 
-[node name="StartGun" type="Node3D" unique_id=1774620038 node_paths=PackedStringArray("CurrGun")]
-script = ExtResource("1_140x7")
-CurrGun = NodePath("GunPivot/InventoryPivot/BasicClipModule")
+[node name="StartGun" type="Node3D" unique_id=1774620038]
+process_mode = 3
+script = ExtResource("1_yhjgo")
 CamSpeed = 1.0
+MinAudioPitch = 0.9
+MaxAudioPitch = 1.5
 
 [node name="GunPivot" type="Node3D" parent="." unique_id=703384107]
-transform = Transform3D(0.99999946, 0, 0, 0, 0.99999917, 0, 0, 0, 0.9999997, 0.84204024, -0.7493494, -0.82598186)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.084, -0.075, -0.083)
 
 [node name="InventoryPivot" type="Node3D" parent="GunPivot" unique_id=541523759]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
-
-[node name="BasicClipModule" parent="GunPivot/InventoryPivot" unique_id=650118633 node_paths=PackedStringArray("NextModules") instance=ExtResource("2_iwwba")]
-transform = Transform3D(1.0000006, 0, 0, 0, 1.0000008, 0, 0, 0, 1.0000004, 0, 0, 0)
-visible = false
-NextModules = [NodePath("../BasicMuzzleModule")]
-
-[node name="BasicMuzzleModule" parent="GunPivot/InventoryPivot" unique_id=2056927245 instance=ExtResource("3_jhnfd")]
-transform = Transform3D(1.0000006, 0, 0, 0, 1.0000008, 0, 0, 0, 1.0000004, 0, 0, -0.25)
-visible = false
 
 [node name="Area3D" type="Area3D" parent="GunPivot" unique_id=541058312]
 collision_layer = 256
@@ -124,13 +116,20 @@ disabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1397258785]
 libraries/ = SubResource("AnimationLibrary_x4h8q")
 
-[node name="BasicMuzzleModule" parent="." unique_id=827574903 instance=ExtResource("3_jhnfd")]
-visible = false
-
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=810558985]
 target_position = Vector3(0, 0, -2)
 collision_mask = 256
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="ReticleRayCast3D" type="RayCast3D" parent="." unique_id=759220396]
+target_position = Vector3(0, 0, -1000)
+collision_mask = 65
+collide_with_areas = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=103798080]
+stream = ExtResource("3_akoo3")
+volume_db = -5.0
+max_polyphony = 5
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

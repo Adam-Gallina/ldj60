@@ -1,6 +1,16 @@
 extends CharacterBody3D
 class_name PlayerController
 
+@export_category('Health')
+@export var MaxHealth = 10.
+@onready var _curr_health = MaxHealth
+
+@export var HealthRegenRate = 5.
+var _next_health = 0
+@export var HealthRegenAmount = 2.5
+
+@onready var _health_indicator : TextureRect = $CanvasLayer/HealthIndicator
+
 @export_category('Movement')
 @export var MoveSpeed = 10
 var _disable_movement = false
@@ -22,16 +32,24 @@ var _disable_cam = false
 @onready var _screw_ray: RayCast3D = $CamParent/ScrewRayCast3D
 
 @export_category('Combat')
-@export var Gun : GunController
+@export var Gun : GunInventory
 
 func set_input(enable_movement=true, enable_cam=true):
 	_disable_movement = not enable_movement
 	_disable_cam = not enable_cam
 
 func _ready() -> void:
-	pass
+	_update_health_indicator()
 
 func _process(delta):
+	if not get_tree().paused:
+		_next_health -= delta
+	if _next_health <= 0 and _curr_health < MaxHealth:
+		_next_health = HealthRegenRate
+		_curr_health += HealthRegenAmount
+		if _curr_health > MaxHealth: _curr_health = MaxHealth
+		_update_health_indicator()
+
 	_handle_input(delta)
 
 	if not _disable_movement:
@@ -71,6 +89,24 @@ func _handle_input(_delta):
 		else:
 			Gun.fire()
 
+
+func damage(amount:float):
+	_curr_health -= amount
+	_next_health = HealthRegenRate
+
+	_update_health_indicator()
+
+	if _curr_health <= 0:
+		death()
+
+func death():
+	print('Yeowch!')
+
+
+func _update_health_indicator():
+	var t = _curr_health / MaxHealth
+	_health_indicator.modulate.a = 1 - t
+	return
 
 
 func set_camera(p: float, y: float):

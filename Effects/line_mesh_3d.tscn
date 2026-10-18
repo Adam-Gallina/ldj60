@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c8nreylx5ly20"]
+
+[ext_resource type="Script" uid="uid://baedtpqfpkkx8" path="res://Effects/line_mesh_3d.gd" id="1_5nm60"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1muqq"]
+albedo_color = Color(0.0196078, 0, 1, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_kbmch"]
+
+[sub_resource type="Curve" id="Curve_2sm02"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="LineMesh3D" type="MeshInstance3D"]
+layers = 33
+material_override = SubResource("StandardMaterial3D_1muqq")
+cast_shadow = 0
+ignore_occlusion_culling = true
+mesh = SubResource("ImmediateMesh_kbmch")
+script = ExtResource("1_5nm60")
+Width = SubResource("Curve_2sm02")

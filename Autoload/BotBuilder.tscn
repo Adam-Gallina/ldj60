@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dchb3ld841xgh"]
+
+[ext_resource type="Script" uid="uid://31v7nve65qic" path="res://Autoload/BotBuilder.gd" id="1_pdc4s"]
+[ext_resource type="PackedScene" uid="uid://e53ds81kxlu0" path="res://Enemies/robot.tscn" id="2_beujl"]
+[ext_resource type="PackedScene" uid="uid://dvks206gs7vik" path="res://Assets/Scenes/RobotParts/bot_box.tscn" id="3_xosx5"]
+[ext_resource type="PackedScene" uid="uid://dqp7eeanr00yo" path="res://Assets/Scenes/RobotParts/bot_microwave.tscn" id="4_ltklg"]
+[ext_resource type="PackedScene" uid="uid://hnt3tica6is6" path="res://Assets/Scenes/RobotParts/bot_blender.tscn" id="5_8guhc"]
+[ext_resource type="PackedScene" uid="uid://dfb752q6c03ly" path="res://Assets/Scenes/RobotParts/bot_jellyfish.tscn" id="6_r8qxc"]
+[ext_resource type="PackedScene" uid="uid://8tn54viwdg5p" path="res://Assets/Scenes/RobotParts/bot_board_curve.tscn" id="7_uf2on"]
+[ext_resource type="PackedScene" uid="uid://2yxkxfw1lnfy" path="res://Assets/Scenes/RobotParts/bot_pipe_curve.tscn" id="8_nxng3"]
+[ext_resource type="PackedScene" uid="uid://cyv557tm8hx6e" path="res://Assets/Scenes/RobotParts/bot_board_straight.tscn" id="9_aqht7"]
+[ext_resource type="PackedScene" uid="uid://dxa05irm3ik80" path="res://Assets/Scenes/RobotParts/bot_pipe_straight.tscn" id="10_jkqlc"]
+
+[node name="BotBuilder" type="Node" unique_id=1366208751]
+script = ExtResource("1_pdc4s")
+BotBase = ExtResource("2_beujl")
+Torsos = Array[PackedScene]([ExtResource("3_xosx5"), ExtResource("4_ltklg")])
+Heads = Array[PackedScene]([ExtResource("5_8guhc"), ExtResource("6_r8qxc")])
+UpperArms = Array[PackedScene]([ExtResource("7_uf2on"), ExtResource("8_nxng3")])
+Forearms = Array[PackedScene]([ExtResource("9_aqht7"), ExtResource("10_jkqlc")])
+Thighs = Array[PackedScene]([ExtResource("9_aqht7"), ExtResource("10_jkqlc")])
+Calves = Array[PackedScene]([ExtResource("9_aqht7"), ExtResource("10_jkqlc")])
