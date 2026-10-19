@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://p073hqjgown5"]
+
+[ext_resource type="Script" uid="uid://n3w7fwhnhcpo" path="res://UI/RoundRewards/stat_reward.gd" id="1_e4r8y"]
+
+[node name="StatReward" type="Node" unique_id=867968839]
+script = ExtResource("1_e4r8y")
+RewardDescription = "Stat Reward!"

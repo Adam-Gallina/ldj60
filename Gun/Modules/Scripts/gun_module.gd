@@ -12,6 +12,11 @@ var PreviousModule : GunModule
 
 @export var InputArrow : Node3D
 
+@export var CanRecycle = true
+@export var BaseModuleValue : int = 5
+
+func get_module_value() -> int: return BaseModuleValue
+
 func get_next_module(connector:Area3D) -> GunModule:
 	if not connector in Connectors:
 		printerr('Trying to lookup module with invalid connector ', connector)
@@ -49,6 +54,8 @@ func remove_next_module(module:GunModule) -> bool:
 
 @export var BulletSpeedMod = 0.
 @export var BulletDamageMod = 0.
+@export var AmmoMod = 0
+@export var FireRateMod = 1.
 
 var _controller : GunController
 

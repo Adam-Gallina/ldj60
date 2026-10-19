@@ -46,7 +46,7 @@ func _handle_raycast_collision(collision:Node, pos:Vector3):
 				hit.damage(curr_stats.damage)
 			elif hit is GunModule and hit._controller == null:
 				# Technically robots can pick up stuff...it's a feature not a bug
-				get_parent().get_node('Player').Gun.add_to_inventory(hit)
+				#get_parent().get_node('Player').Gun.add_to_inventory(hit)
 				spawn_sparks(pos)
 			despawn()
 	else:

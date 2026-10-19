@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://caxf3c1qtduw0"]
+
+[ext_resource type="Script" uid="uid://c5eihgu6aaxl1" path="res://UI/RoundRewards/reward_price.gd" id="1_o16ki"]
+
+[node name="RewardPrice" type="Node" unique_id=1827716552]
+script = ExtResource("1_o16ki")

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://drtsa8l7nburw"]
+
+[ext_resource type="Script" uid="uid://doyqhba2brook" path="res://Enemies/bot_spawner.gd" id="1_nkybw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rpagc"]
+size = Vector3(2.0321655, 2.364746, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nkybw"]
+size = Vector3(2, 2, 1)
+
+[node name="BotSpawner" type="StaticBody3D" unique_id=1819689799 node_paths=PackedStringArray("SpawnPos")]
+script = ExtResource("1_nkybw")
+SpawnPos = NodePath("SpawnPos")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=547586862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0121154785, 0.31762695, 0)
+shape = SubResource("BoxShape3D_rpagc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1046904928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.47972298, 0)
+mesh = SubResource("BoxMesh_nkybw")
+
+[node name="SpawnPos" type="Node3D" parent="." unique_id=705277812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6413625)

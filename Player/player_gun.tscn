@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://cu75xy6xrrfnj"]
 
-[ext_resource type="Script" uid="uid://bc5tvfh3od8su" path="res://Player/gun_inventory.gd" id="1_yhjgo"]
+[ext_resource type="Script" uid="uid://b5o6qwcifbqdc" path="res://Player/gun_upgrades.gd" id="1_yhjgo"]
+[ext_resource type="PackedScene" uid="uid://dih28tq1rbdoj" path="res://UI/RoundRewards/bolt_reward.tscn" id="2_foxyx"]
 [ext_resource type="AudioStream" uid="uid://dbgf40e58wnn0" path="res://Audio/gun-gunshot-02.wav" id="3_akoo3"]
+[ext_resource type="PackedScene" uid="uid://ctlprub2ffw2b" path="res://UI/RoundRewards/module_reward.tscn" id="3_mltxt"]
+[ext_resource type="FontFile" uid="uid://dy5b5p2qtjjlb" path="res://UI/Fonts/Bitcount_Ink/BitcountInk-VariableFont_CRSV,ELSH,ELXP,SZP1,SZP2,XPN1,XPN2,YPN1,YPN2,slnt,wght.ttf" id="3_yhjgo"]
+[ext_resource type="Texture2D" uid="uid://p52tdskieea0" path="res://UI/monitor_9patch.png" id="4_akoo3"]
+[ext_resource type="PackedScene" uid="uid://p073hqjgown5" path="res://UI/RoundRewards/stat_reward.tscn" id="4_wgyld"]
+[ext_resource type="PackedScene" uid="uid://caxf3c1qtduw0" path="res://UI/RoundRewards/reward_price.tscn" id="5_54v68"]
+[ext_resource type="Texture2D" uid="uid://dsjhrhkuxd72f" path="res://UI/Doodad.png" id="5_eu7kx"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_iwwba"]
 plane = Plane(-1, 0, 0, 0)
@@ -91,9 +98,387 @@ _data = {
 &"swap_inventory": SubResource("Animation_jhnfd")
 }
 
+[sub_resource type="Animation" id="Animation_akoo3"]
+resource_name = "DropAll"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(62, -388), Vector2(126, -17.000008), Vector2(278, 217), Vector2(197, 194.99998)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.13333334, 0.53333336, 0.7666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(723.99994, -276), Vector2(734.9999, 21.000015), Vector2(624, 186), Vector2(624, 167)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NinePatchRect2:rotation")
+tracks/2/interp = 4
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.13333334, 0.7666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.4537856, 0.0, -0.053260528]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("NinePatchRect:rotation")
+tracks/3/interp = 4
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.24609143, 0.0, 0.04712389]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:mouse_filter")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mltxt"]
+resource_name = "DropUpgrades"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(275, -300), Vector2(275, 224), Vector2(275, 201)]
+}
+
+[sub_resource type="Animation" id="Animation_eu7kx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(216, -383.275)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(635.99994, -295)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NinePatchRect2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.053260528]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("NinePatchRect:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.24609143]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:mouse_filter")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("NinePatchRect3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(275, -300)]
+}
+
+[sub_resource type="Animation" id="Animation_mph3i"]
+resource_name = "ReturnAll"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.6333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(197, 194.99998), Vector2(197, 214), Vector2(197, -314)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16666667, 0.33333334, 0.8000001),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(624, 167), Vector2(624, 197), Vector2(624, -305)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NinePatchRect2:rotation")
+tracks/2/interp = 4
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.16666667),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.053260528]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("NinePatchRect:rotation")
+tracks/3/interp = 4
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.04712389]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:mouse_filter")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_dnk4j"]
+resource_name = "ReturnDouble"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(197, 194.99998)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.6333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(624, 167), Vector2(624, 197), Vector2(624, -305)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NinePatchRect2:rotation")
+tracks/2/interp = 4
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.053260528]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("NinePatchRect:rotation")
+tracks/3/interp = 4
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.04712389]
+}
+
+[sub_resource type="Animation" id="Animation_foxyx"]
+resource_name = "ReturnRewards"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.6333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(197, 194.99998), Vector2(197, 214), Vector2(197, -314)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(723.99994, -276)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NinePatchRect2:rotation")
+tracks/2/interp = 4
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.4537856]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("NinePatchRect:rotation")
+tracks/3/interp = 4
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.04712389]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:mouse_filter")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_wgyld"]
+resource_name = "ReturnUpgrades"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(275, 201), Vector2(275, 224), Vector2(275, -300)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mph3i"]
+_data = {
+&"DropAll": SubResource("Animation_akoo3"),
+&"DropUpgrades": SubResource("Animation_mltxt"),
+&"RESET": SubResource("Animation_eu7kx"),
+&"ReturnAll": SubResource("Animation_mph3i"),
+&"ReturnDouble": SubResource("Animation_dnk4j"),
+&"ReturnRewards": SubResource("Animation_foxyx"),
+&"ReturnUpgrades": SubResource("Animation_wgyld")
+}
+
+[sub_resource type="Gradient" id="Gradient_mph3i"]
+colors = PackedColorArray(0.8156863, 0.8156863, 0.8156863, 1, 0.8156727, 0.8156727, 0.8156727, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dnk4j"]
+gradient = SubResource("Gradient_mph3i")
+
+[sub_resource type="Gradient" id="Gradient_foxyx"]
+colors = PackedColorArray(0.65882355, 0.65882355, 0.65882355, 1, 0.65882355, 0.65882355, 0.65882355, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mltxt"]
+gradient = SubResource("Gradient_foxyx")
+
 [node name="StartGun" type="Node3D" unique_id=1774620038]
 process_mode = 3
 script = ExtResource("1_yhjgo")
+BoltReward = ExtResource("2_foxyx")
+ModuleReward = ExtResource("3_mltxt")
+BonusRewards = Array[PackedScene]([ExtResource("2_foxyx"), ExtResource("3_mltxt")])
+BonusPrices = Array[PackedScene]([ExtResource("5_54v68")])
+ShopRewards = Array[PackedScene]([ExtResource("3_mltxt"), ExtResource("4_wgyld")])
 CamSpeed = 1.0
 MinAudioPitch = 0.9
 MaxAudioPitch = 1.5
@@ -132,4 +517,577 @@ stream = ExtResource("3_akoo3")
 volume_db = -5.0
 max_polyphony = 5
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=541529051]
+
+[node name="UpgradeUI" type="Control" parent="CanvasLayer" unique_id=1172797583]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/UpgradeUI" unique_id=2093951091]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="RecycleLabel" type="Label" parent="CanvasLayer/UpgradeUI/Control" unique_id=1172884512]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -95.0
+offset_right = -13.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 20
+text = "Press E to recycle for ### bolts"
+autowrap_mode = 2
+
+[node name="UpgradeButton" type="Button" parent="CanvasLayer/UpgradeUI" unique_id=1980624101]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -239.0
+offset_top = -82.0
+offset_right = -15.0
+offset_bottom = -37.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 30
+text = "Upgrade"
+
+[node name="NextButton" type="Button" parent="CanvasLayer/UpgradeUI" unique_id=728249448]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -239.0
+offset_top = -22.5
+offset_right = -15.0
+offset_bottom = 22.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 30
+text = " Next Round "
+
+[node name="Control2" type="Control" parent="CanvasLayer/UpgradeUI" unique_id=244037573]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RewardAnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UpgradeUI/Control2" unique_id=2029369896]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_mph3i")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/UpgradeUI/Control2" unique_id=2027783582]
+layout_mode = 0
+offset_left = 216.0
+offset_top = -383.275
+offset_right = 424.49988
+offset_bottom = -242.77496
+rotation = 0.24609143
+scale = Vector2(2, 2)
+texture = ExtResource("4_akoo3")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect" unique_id=441770376]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 23.109873
+offset_top = -115.708405
+offset_right = 88.734535
+offset_bottom = 15.540955
+texture = ExtResource("5_eu7kx")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect" unique_id=1007143270]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.75
+offset_top = -51.5
+offset_right = 254.25
+offset_bottom = 153.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_dnk4j")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect/TextureRect" unique_id=2087886105]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_top = 16.5
+offset_right = 84.0
+offset_bottom = 41.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 20
+text = "Round Complete"
+
+[node name="Label2" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect/TextureRect" unique_id=1344141530]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 44.5
+offset_right = 38.0
+offset_bottom = 62.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "Earnings:"
+
+[node name="BoltsRewardLabel" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect/TextureRect" unique_id=1998270792]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 130.5
+offset_right = -55.0
+offset_bottom = 148.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "### Bolts"
+
+[node name="ModuleRewardLabel" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect/TextureRect" unique_id=2085234248]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 42.0
+offset_top = 128.5
+offset_right = 127.0
+offset_bottom = 146.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "Gun Module"
+
+[node name="Button" type="Button" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect/TextureRect" unique_id=2146322784]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -41.5
+offset_right = 57.0
+offset_bottom = -13.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+text = " All mine! "
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="CanvasLayer/UpgradeUI/Control2" unique_id=589870221]
+layout_mode = 0
+offset_left = 635.99994
+offset_top = -295.0
+offset_right = 778.46
+offset_bottom = -153.2699
+rotation = -0.053260528
+scale = Vector2(2, 2)
+texture = ExtResource("4_akoo3")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2" unique_id=491819128]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 80.87843
+offset_top = -96.97882
+offset_right = 137.3752
+offset_bottom = 16.014763
+rotation = -0.05970028
+texture = ExtResource("5_eu7kx")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2" unique_id=211402521]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.047222
+offset_top = -51.903572
+offset_right = 150.95279
+offset_bottom = 153.09644
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_dnk4j")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2/TextureRect3" unique_id=214662621]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_top = 16.5
+offset_right = 84.0
+offset_bottom = 41.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 16
+text = "Double or nothing?"
+
+[node name="Label2" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2/TextureRect3" unique_id=1108348620]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 44.5
+offset_right = 38.0
+offset_bottom = 62.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "You get:"
+
+[node name="Label5" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2/TextureRect3" unique_id=217341147]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -54.0
+offset_top = 68.5
+offset_right = 56.0
+offset_bottom = 86.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "Random Gun module"
+
+[node name="Label3" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2/TextureRect3" unique_id=272170930]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_top = 98.5
+offset_right = 35.5
+offset_bottom = 116.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "The bots get:"
+
+[node name="Label4" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2/TextureRect3" unique_id=1946292740]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -41.5
+offset_top = 127.5
+offset_right = 43.5
+offset_bottom = 145.5
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "Stat increase"
+
+[node name="Button" type="Button" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect2/TextureRect3" unique_id=427640910]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -41.5
+offset_right = 57.0
+offset_bottom = -13.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+text = "Gimme!"
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="CanvasLayer/UpgradeUI/Control2" unique_id=309914595]
+layout_mode = 0
+offset_left = 275.0
+offset_top = -300.0
+offset_right = 574.5
+offset_bottom = -159.49997
+scale = Vector2(2, 2)
+texture = ExtResource("4_akoo3")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3" unique_id=1850384429]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 3.000002
+offset_top = -115.0
+offset_right = 68.624664
+offset_bottom = 16.24936
+texture = ExtResource("5_eu7kx")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3" unique_id=142201032]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 248.5
+offset_top = -115.0
+offset_right = 314.12466
+offset_bottom = 16.24936
+texture = ExtResource("5_eu7kx")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3" unique_id=1975615434]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.25
+offset_top = -51.5
+offset_right = 387.75
+offset_bottom = 153.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_dnk4j")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=1905547049]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_top = 7.4999695
+offset_right = 84.0
+offset_bottom = 32.49997
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 20
+text = "Bolts 4 Upgrades"
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=81593161]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 141.5
+offset_top = -199.50003
+offset_right = 255.5
+offset_bottom = -171.50003
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+text = "Close"
+
+[node name="OptionOneLabel" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=896057509]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -210.5
+offset_top = 141.49997
+offset_right = -134.5
+offset_bottom = 159.49997
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "Earnings:"
+
+[node name="OptionOneButton" type="Button" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=1622940535]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -233.5
+offset_top = -41.5
+offset_right = -119.5
+offset_bottom = -13.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+text = " All mine! "
+
+[node name="OptionTwoLabel" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=1316510667]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.5
+offset_top = 138.49997
+offset_right = 39.5
+offset_bottom = 156.49997
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "### Bolts"
+
+[node name="OptionTwoButton" type="Button" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=1844213683]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -51.5
+offset_top = -41.5
+offset_right = 62.5
+offset_bottom = -13.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+text = " All mine! "
+
+[node name="OptionThreeLabel" type="Label" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=2061535646]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 141.5
+offset_top = 136.49997
+offset_right = 226.5
+offset_bottom = 154.49997
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 14
+text = "Gun Module"
+
+[node name="OptionThreeButton" type="Button" parent="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect" unique_id=942011725]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 124.5
+offset_top = -41.5
+offset_right = 238.5
+offset_bottom = -13.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+text = " All mine! "
+
+[node name="AmmoLabel" type="Label" parent="CanvasLayer" unique_id=1455207049]
+unique_name_in_owner = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 101.0
+offset_top = -113.0
+offset_right = 161.0
+offset_bottom = -53.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 50
+text = "10"
+
+[node name="MaxAmmoLabel" type="Label" parent="CanvasLayer/AmmoLabel" unique_id=1081462438]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -10.0
+offset_right = 16.0
+offset_bottom = 50.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6578363, 0.6578363, 0.6578363, 1)
+theme_override_fonts/font = ExtResource("3_yhjgo")
+theme_override_font_sizes/font_size = 50
+text = "10"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/AmmoLabel" unique_id=796474027]
+layout_mode = 0
+offset_left = -16.999998
+offset_top = 36.000008
+offset_right = 47.0
+offset_bottom = 38.029915
+rotation = 0.47214854
+texture = SubResource("GradientTexture2D_mltxt")
+expand_mode = 1
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/UpgradeButton" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/NextButton" to="." method="_on_next_round_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/Control2/NinePatchRect/TextureRect/Button" to="." method="_on_collect_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/Control2/NinePatchRect2/TextureRect3/Button" to="." method="_on_double_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect/CloseButton" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect/OptionOneButton" to="." method="_on_buy_pressed" binds= [0]]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect/OptionTwoButton" to="." method="_on_buy_pressed" binds= [1]]
+[connection signal="pressed" from="CanvasLayer/UpgradeUI/Control2/NinePatchRect3/TextureRect/OptionThreeButton" to="." method="_on_buy_pressed" binds= [2]]

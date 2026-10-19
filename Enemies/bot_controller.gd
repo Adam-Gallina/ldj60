@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name BotController
 
+signal destroyed(bot:BotController)
+
 enum AIState {
 	wander,
 	chase,
@@ -50,11 +52,58 @@ func _ready() -> void:
 	_nav_agent.velocity_computed.connect(_on_velocity_calculated)
 	_nav_agent.navigation_finished.connect(_on_navigation_finished)
 
-	_nav_agent.max_speed = WanderSpeed	
+	_nav_agent.max_speed = WanderSpeed
+
+var _spawned = false
+
+@export var PartDropHeight = 20
+@export var PartDropDuration = .5
+@export var PartDropOffset = .25
+@export var InitialDelay = .5
+
+func spawn():
+	var pivots = BotBuilder.BotPivots.new(self)
+
+	#_spawn_part(pivots.lknee, InitialDelay)
+	#_spawn_part(pivots.rknee, InitialDelay)
+	#_spawn_part(pivots.lthigh, InitialDelay + PartDropOffset)
+	#_spawn_part(pivots.rthigh, InitialDelay + PartDropOffset)
+	_spawn_part(pivots.waist, InitialDelay + PartDropOffset * randf())
+	_spawn_part(pivots.lshoulder, InitialDelay + PartDropOffset + PartDropOffset * randf())
+	_spawn_part(pivots.rshoulder, InitialDelay + PartDropOffset + PartDropOffset * randf())
+	_spawn_part(pivots.lelbow, InitialDelay + PartDropOffset * 2 + PartDropOffset * randf())
+	_spawn_part(pivots.relbow, InitialDelay + PartDropOffset * 2 + PartDropOffset * randf())
+	_spawn_part(pivots.neck, InitialDelay + PartDropOffset * 3 + PartDropOffset * randf())
+
+	await get_tree().create_timer(InitialDelay + PartDropOffset * 4 + PartDropDuration + InitialDelay * 2).timeout
+
+	_spawned = true
 	_on_navigation_finished()
+
+func _spawn_part(pivot:Node3D, start_delay:float):
+	var target = pivot.position
+	var pos = pivot.position + Vector3.UP * PartDropHeight
+
+	pivot.position = pos
+
+	if start_delay > 0:
+		await get_tree().create_timer(start_delay).timeout
+
+	var d = PartDropDuration
+	while d > 0:
+		d -= get_process_delta_time()
+		var t = 1 - d / PartDropDuration
+
+		pivot.position = pos + (target - pos) * t
+
+		await get_tree().process_frame
+
+	pivot.position = target
 
 
 func _physics_process(delta: float) -> void:
+	if not _spawned: return
+
 	if _state == AIState.attack:
 		_nav_agent.set_velocity(Vector3.ZERO)
 		velocity = Vector3.ZERO
@@ -151,6 +200,8 @@ func _get_random_position() -> Vector3:
 
 
 func damage(amount: float):
+	if not _spawned: return
+
 	_curr_health -= amount
 
 	if _curr_health <= 0:
@@ -158,7 +209,9 @@ func damage(amount: float):
 
 func death():
 	if Torso != null and not Torso.is_queued_for_deletion():
-		Torso.death()
+		Torso.detach()
+
+	destroyed.emit(self)
 
 	queue_free()
 

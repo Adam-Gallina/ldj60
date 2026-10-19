@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b0tnxfha1je7w"]
+
+[ext_resource type="Script" uid="uid://bjvp5cxwtjgxk" path="res://Player/Interactive/upgrade_panel.gd" id="1_71yqp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e6ggv"]
+size = Vector3(0.5090637, 0.49591064, 0.5366211)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_71yqp"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.5
+
+[node name="UpgradePanel" type="StaticBody3D" unique_id=1744734051]
+collision_layer = 17
+collision_mask = 0
+script = ExtResource("1_71yqp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1230930986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0063323975, 0.25759888, -0.004638672)
+shape = SubResource("BoxShape3D_e6ggv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2016753410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("CylinderMesh_71yqp")

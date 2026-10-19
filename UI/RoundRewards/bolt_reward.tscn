@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dih28tq1rbdoj"]
+
+[ext_resource type="Script" uid="uid://ca0vr0vcalutb" path="res://UI/RoundRewards/bolt_reward.gd" id="1_ctcfb"]
+
+[node name="BoltReward" type="Node" unique_id=1621392161]
+script = ExtResource("1_ctcfb")
+RewardDescription = "{0} Bolts"

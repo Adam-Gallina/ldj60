@@ -29,10 +29,14 @@ var _disable_cam = false
 @export var CamMod = 1.
 
 @onready var cam: Camera3D = $CamParent/Camera3D
-@onready var _screw_ray: RayCast3D = $CamParent/ScrewRayCast3D
 
 @export_category('Combat')
-@export var Gun : GunInventory
+@export var Gun : GunUpgrades
+
+@onready var _bolt_label : Label = get_node('%BoltLabel')
+@onready var _interaction_label : Label = get_node('%InteractionLabel')
+
+@onready var _interaction_raycast :RayCast3D = $CamParent/InteractionRayCast3D
 
 func set_input(enable_movement=true, enable_cam=true):
 	_disable_movement = not enable_movement
@@ -40,6 +44,8 @@ func set_input(enable_movement=true, enable_cam=true):
 
 func _ready() -> void:
 	_update_health_indicator()
+	_show_interaction_prompt(null)
+	get_node('%GameOverScreen').hide()
 
 func _process(delta):
 	if not get_tree().paused:
@@ -59,6 +65,8 @@ func _process(delta):
 	move_and_slide()
 	apply_floor_snap()
 
+	_update_ui()
+
 
 func _handle_movement(_delta):
 	var x = Input.get_axis('Left', 'Right')
@@ -75,9 +83,10 @@ func _handle_input(_delta):
 			get_tree().quit()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-	if Input.is_action_just_pressed('Inventory'):
-		Gun.toggle_inventory()
-		set_input(not Gun.inventory_open, not Gun.inventory_open)
+	if Input.is_key_pressed(KEY_SHIFT):
+		if Input.is_action_just_pressed('Inventory'):
+			Gun.toggle_inventory()
+			set_input(not Gun.inventory_open, not Gun.inventory_open)
 		
 
 	if _disable_cam: return
@@ -85,9 +94,33 @@ func _handle_input(_delta):
 	if Input.is_action_just_pressed('Select'):
 		if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#elif Input.is_action_pressed('Select'):
+	elif Input.is_action_pressed('Select'):
+		Gun.fire()
+
+	if Input.is_action_just_pressed('Reload'):
+		Gun.reload()
+
+	if _interaction_raycast.is_colliding():
+		var coll = _interaction_raycast.get_collider()
+		if coll is InteractionBase:
+			_show_interaction_prompt(coll)
+			if Input.is_action_just_pressed('Interact'):
+				coll.interact()
 		else:
-			Gun.fire()
+			_show_interaction_prompt(null)
+	else:
+		_show_interaction_prompt(null)
+
+func _update_ui():
+	_bolt_label.text = 'Bolts {0}'.format([PlayerStats.Bolts])
+
+func _show_interaction_prompt(interaction:InteractionBase):
+	if interaction == null:
+		_interaction_label.hide()
+		return
+	
+	_interaction_label.show()
+	_interaction_label.text = 'Press E to ' + interaction.Description
 
 
 func damage(amount:float):
@@ -100,7 +133,15 @@ func damage(amount:float):
 		death()
 
 func death():
-	print('Yeowch!')
+	get_tree().paused = true
+	set_input(false, false)
+
+	get_node('%GameOverScreen').show()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_node('%RoundCountLabel').text = 'You survived {0} rounds!'.format([Constants.WaveContoller.CurrWave])
+
+func _play_again():
+	get_tree().reload_current_scene()
 
 
 func _update_health_indicator():

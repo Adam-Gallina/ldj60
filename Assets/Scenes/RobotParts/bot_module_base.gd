@@ -20,7 +20,7 @@ func _ready() -> void:
 func damage(amount : float):
 	_curr_health -= amount
 	Controller.damage(amount)
-	print(name, ': ', _curr_health)
+	
 	if _curr_health <= 0:
 		module_destroyed.emit(self)
 

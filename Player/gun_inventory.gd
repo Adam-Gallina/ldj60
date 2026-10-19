@@ -28,22 +28,66 @@ var yaw:
 	set(val): _inventory_pivot.rotation.y = val
 	get: return _inventory_pivot.rotation.y
 var _cam_active = false
+@export_category('UI')
+@onready var _recycle_label : Label = get_node('%RecycleLabel')
+var _curr_recycle : GunModule = null
+
 @export_category('')
 
 @onready var anim : AnimationPlayer = $AnimationPlayer
+
+@export var BaseAmmo = 10
+@onready var _curr_ammo = BaseAmmo
+@export var ShotRate = .25
+var _can_shoot : bool = true
+@export var ReloadRate = 1.
+
+@onready var _ammo_label = get_node('%AmmoLabel')
+@onready var _max_ammo_label = get_node('%MaxAmmoLabel')
 
 func _ready() -> void:
 	set_base_module(load('res://Gun/Modules/basic_clip_module.tscn').instantiate())
 
 	add_to_inventory(load('res://Gun/Modules/basic_muzzle_module.tscn').instantiate())
 	add_to_inventory(load('res://Gun/Modules/basic_muzzle_module.tscn').instantiate())
+	
+	update_recycle_text(null)
 
+func fire():
+	if _can_shoot:
+		super()
+
+		_can_shoot = false
+
+		_curr_ammo -= 1
+		_update_ammo()
+
+		if _curr_ammo <= 0:
+			await reload()
+		else:
+			await get_tree().create_timer(ShotRate).timeout
+		_can_shoot = true
+
+func reload():
+	_can_shoot = false
+	await get_tree().create_timer(ReloadRate).timeout
+	_curr_ammo = BaseAmmo
+	_update_ammo()
+	_can_shoot = true
+
+func _update_ammo():
+	_ammo_label.text = str(_curr_ammo)
+	_max_ammo_label.text = str(BaseAmmo)
 
 func add_to_inventory(module:GunModule):
 	Inventory.append(module)
 	module.hover_changed.connect(_on_module_hovered)
 	if module.get_parent() != null:
 		module.get_parent().remove_child(module)
+
+	if inventory_open:
+		_gun_pivot.add_child(module)
+		module.position = Vector3.DOWN.rotated(Vector3.LEFT, PI / 8 * (Inventory.size()-1))
 
 
 func toggle_inventory():
@@ -52,7 +96,7 @@ func toggle_inventory():
 		anim.play('swap_inventory')
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
-		get_tree().paused = false
+		#get_tree().paused = false
 		anim.play_backwards('swap_inventory')
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_reset_cam(.1)
@@ -61,11 +105,12 @@ func toggle_inventory():
 func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == 'swap_inventory':
 		if inventory_open:
-			get_tree().paused = true
+			#get_tree().paused = true
 			for i in range(Inventory.size()):
 				_gun_pivot.add_child(Inventory[i])
 				Inventory[i].position = Vector3.DOWN.rotated(Vector3.LEFT, PI / 8 * i)
 		else:
+			update_recycle_text(null)
 			for m in Inventory:
 				_gun_pivot.remove_child(m)
 
@@ -90,6 +135,8 @@ func _process(_delta: float) -> void:
 		if _curr_hover != null:
 			_curr_drag = _curr_hover
 			_curr_drag.set_mouse_areas(false)
+
+			update_recycle_text(_curr_drag)
 	elif Input.is_action_just_released('Select'):
 		if _curr_drag != null:
 			if _curr_connector != null:
@@ -100,6 +147,7 @@ func _process(_delta: float) -> void:
 			_curr_drag.set_mouse_areas(true)
 			_curr_hover = _curr_drag
 			_curr_drag = null
+			update_recycle_text(null)
 	
 	if _curr_drag != null:
 		if _curr_connector != null:
@@ -111,6 +159,17 @@ func _process(_delta: float) -> void:
 				_curr_drag.global_position = pos
 				_curr_drag.basis.z = Vector3.FORWARD
 
+	if Input.is_action_just_pressed('Interact'):
+		if _curr_recycle != null:
+			PlayerStats.Bolts += _curr_recycle.get_module_value()
+
+			if _curr_recycle.PreviousModule != null:
+				remove_module_from_connector(_curr_recycle)
+			Inventory.erase(_curr_recycle)
+
+			_curr_recycle.queue_free()
+			_curr_recycle = null
+
 
 func _on_module_hovered(module:GunModule, hovered:bool):
 	if hovered:
@@ -118,6 +177,8 @@ func _on_module_hovered(module:GunModule, hovered:bool):
 			_curr_hover.set_arrows(false)
 		_curr_hover = module
 		_curr_hover.set_arrows(true)
+
+		if _curr_drag == null: update_recycle_text(_curr_hover)
 	elif _curr_hover == module:
 		if _curr_hover.PreviousModule == null:
 			_curr_hover.set_arrows(false)
@@ -125,14 +186,20 @@ func _on_module_hovered(module:GunModule, hovered:bool):
 			_curr_hover.set_arrows(true, true)
 		_curr_hover = null
 
+		if _curr_drag == null: update_recycle_text(null)
+
 func _on_module_connector_hovered(module:GunModule, connector:Area3D, hovered:bool):
 	if hovered: 
 		_curr_hover = module
 		_curr_connector = connector
 		_curr_connector_module = module
+
+		if _curr_drag == null: update_recycle_text(_curr_hover)
 	else:
 		if _curr_hover == module: 
 			_curr_hover = null
+
+			if _curr_drag == null: update_recycle_text(null)
 		if _curr_connector == connector:
 			_curr_connector = null
 			_curr_connector_module = null
@@ -147,6 +214,10 @@ func add_module_to_connector(module:GunModule, connector:Area3D, connector_modul
 
 		connector_module.set_arrows(true, true)
 		module.set_arrows(true, true)
+
+		BaseAmmo += module.AmmoMod
+		ShotRate *= module.FireRateMod
+		_update_ammo()
 		
 func remove_module_from_connector(module:GunModule):
 	var prev_module : GunModule = null
@@ -158,6 +229,10 @@ func remove_module_from_connector(module:GunModule):
 	module.get_parent().remove_child(module)
 	_gun_pivot.add_child(module)
 	module.basis.z = Vector3.FORWARD
+
+	BaseAmmo -= module.AmmoMod
+	ShotRate /= module.FireRateMod
+	_update_ammo()
 
 	super(module)
 
@@ -172,6 +247,17 @@ func set_base_module(module:ClipModule):
 
 	CurrGun.connector_hover_changed.connect(_on_module_connector_hovered)
 	_inventory_pivot.add_child(CurrGun)
+
+
+func update_recycle_text(module:GunModule):
+	if module == null or not module.CanRecycle:
+		_curr_recycle = null
+		_recycle_label.hide()
+		return
+
+	_curr_recycle = module
+	_recycle_label.show()
+	_recycle_label.text = 'Press E to recycle for {0} bolts'.format([module.get_module_value()])
 
 
 

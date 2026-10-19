@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ctlprub2ffw2b"]
+
+[ext_resource type="Script" uid="uid://btyc5lblb4phl" path="res://UI/RoundRewards/module_reward.gd" id="1_mvqjb"]
+[ext_resource type="PackedScene" uid="uid://jvv7oenrpyej" path="res://Gun/Modules/basic_muzzle_module.tscn" id="2_7cycl"]
+[ext_resource type="PackedScene" uid="uid://htjc4hd20s0v" path="res://Gun/Modules/dual_output_module.tscn" id="3_6x4pf"]
+
+[node name="ModuleReward" type="Node" unique_id=1888965954]
+script = ExtResource("1_mvqjb")
+Modules = Array[PackedScene]([ExtResource("2_7cycl"), ExtResource("3_6x4pf")])

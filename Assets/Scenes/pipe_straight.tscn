@@ -61,7 +61,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hma8o")
 
-[node name="BotPipeStraight" type="RigidBody3D" unique_id=1745471849]
+[node name="BotPipeStraight" type="RigidBody3D" unique_id=1745471849 groups=["Debris"]]
 collision_layer = 8
 collision_mask = 9
 angular_damp = 1.0

@@ -3,8 +3,16 @@
 [ext_resource type="Script" uid="uid://cf00ih2puy8eq" path="res://Player/player_controller.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://cu75xy6xrrfnj" path="res://Player/player_gun.tscn" id="2_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://bxysuln8hltvv" path="res://UI/HealthIndicator.png" id="3_btcbx"]
+[ext_resource type="FontFile" uid="uid://dy5b5p2qtjjlb" path="res://UI/Fonts/Bitcount_Ink/BitcountInk-VariableFont_CRSV,ELSH,ELXP,SZP1,SZP2,XPN1,XPN2,YPN1,YPN2,slnt,wght.ttf" id="4_gwnis"]
+[ext_resource type="Texture2D" uid="uid://p52tdskieea0" path="res://UI/monitor_9patch.png" id="5_k53q1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
+
+[sub_resource type="Gradient" id="Gradient_mph3i"]
+colors = PackedColorArray(0.8156863, 0.8156863, 0.8156863, 1, 0.8156727, 0.8156727, 0.8156727, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fhl08"]
+gradient = SubResource("Gradient_mph3i")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ntmi"]
 size = Vector3(1, 2, 0.5)
@@ -24,13 +32,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=746140883]
 
-[node name="ScrewRayCast3D" type="RayCast3D" parent="CamParent" unique_id=1332996529]
-target_position = Vector3(0, 0, -2.5)
-collision_mask = 15
-
 [node name="StartGun" parent="CamParent" unique_id=1774620038 node_paths=PackedStringArray("Parent") instance=ExtResource("2_4ntmi")]
 transform = Transform3D(0.9999994, 0, 0, 0, 0.99999917, 0, 0, 0, 0.9999997, 0, 0, 0)
 Parent = NodePath("../..")
+
+[node name="InteractionRayCast3D" type="RayCast3D" parent="CamParent" unique_id=231974860]
+target_position = Vector3(0, 0, -3)
+collision_mask = 17
+collide_with_areas = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=314341344]
 
@@ -65,7 +74,133 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_btcbx")
+
+[node name="Control2" type="Control" parent="CanvasLayer" unique_id=93770196]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BoltLabel" type="Label" parent="CanvasLayer/Control2" unique_id=1567445049]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 22.0
+offset_top = 17.0
+offset_right = 226.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("4_gwnis")
+theme_override_font_sizes/font_size = 34
+text = "Bolts: ###"
+
+[node name="Control3" type="Control" parent="CanvasLayer" unique_id=1094896348]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="InteractionLabel" type="Label" parent="CanvasLayer/Control3" unique_id=773716040]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -245.0
+offset_top = -65.0
+offset_right = 245.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_gwnis")
+theme_override_font_sizes/font_size = 24
+text = "Press E to purchase health upgrade"
+
+[node name="GameOverScreen" type="NinePatchRect" parent="CanvasLayer" unique_id=1676411014]
+unique_name_in_owner = true
+offset_left = 283.0
+offset_top = 175.0
+offset_right = 582.5
+offset_bottom = 315.50003
+scale = Vector2(2, 2)
+texture = ExtResource("5_k53q1")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GameOverScreen" unique_id=212059396]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.25
+offset_top = -51.5
+offset_right = 387.75
+offset_bottom = 153.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_fhl08")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="CanvasLayer/GameOverScreen/TextureRect" unique_id=1374537952]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.5
+offset_top = 7.4999695
+offset_right = 104.5
+offset_bottom = 32.49997
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_gwnis")
+theme_override_font_sizes/font_size = 20
+text = "Game Over..."
+
+[node name="RoundCountLabel" type="Label" parent="CanvasLayer/GameOverScreen/TextureRect" unique_id=2048330395]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -198.5
+offset_top = 80.49997
+offset_right = 215.5
+offset_bottom = 117.49997
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_gwnis")
+theme_override_font_sizes/font_size = 30
+text = "You survived ## rounds!"
+
+[node name="Button" type="Button" parent="CanvasLayer/GameOverScreen/TextureRect" unique_id=650129641]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -51.5
+offset_top = -41.5
+offset_right = 62.5
+offset_bottom = -13.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_gwnis")
+text = "Try again?"
 
 [node name="Area3D" type="Area3D" parent="." unique_id=353002798]
 collision_layer = 64
@@ -74,3 +209,5 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1988217330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.25)
 shape = SubResource("BoxShape3D_4ntmi")
+
+[connection signal="pressed" from="CanvasLayer/GameOverScreen/TextureRect/Button" to="." method="_play_again"]

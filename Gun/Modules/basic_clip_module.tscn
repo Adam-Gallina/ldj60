@@ -22,6 +22,8 @@ script = ExtResource("1_27ime")
 BulletScene = ExtResource("2_ejdjv")
 ModuleHeight = 2
 Connectors = [NodePath("ModuleConnector")]
+CanRecycle = false
+BaseModuleValue = 0
 BulletSpeedMod = 100.0
 BulletDamageMod = 1.0
 
